@@ -1,5 +1,6 @@
-import localFont from "next/font/local";
+import "/node_modules/boxicons/css/boxicons.min.css";
 import NavBar from "@/components/navbar";
+import localFont from "next/font/local";
 import "./globals.css";
 
 const chakraPetch = localFont({

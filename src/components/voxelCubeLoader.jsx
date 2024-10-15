@@ -6,6 +6,8 @@ export const CubeSpinner = () => (
   <div className="absolute left-1/2 top-1/2 w-12 h-12 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin"></div>
 )
 
+CubeSpinner.displayName= "CubeSpinner";
+
 export const CubeContainer = forwardRef(({ children }, ref) => (
   <div
     ref={ref}
@@ -17,6 +19,8 @@ export const CubeContainer = forwardRef(({ children }, ref) => (
     {children}
   </div>
 ))
+
+CubeContainer.displayName= "CubeContainer"
 
 const Loader = () => {
   return (

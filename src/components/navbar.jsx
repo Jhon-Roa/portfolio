@@ -22,8 +22,8 @@ export default function NavBar() {
     const navItems = [
         { name: 'Home', href: '/' },
         { name: 'AboutMe', href: '/about' },
-        { name: 'Servicios', href: '/services' },
-        { name: 'Contacto', href: '/contact' },
+        { name: 'Services', href: '/services' },
+        { name: 'Projects', href: '/projects' },
     ]
 
     const [activeIndex, setActiveIndex] = useState(() => {
