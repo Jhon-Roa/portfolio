@@ -22,12 +22,12 @@ const About = () => {
     const [animation, setAnimation] = useState('')
 
     const items = [
-        <div className={styles.firstSecondDiv}>
+        <div key={"firstDiv"} className={styles.firstSecondDiv}>
             <div className={styles.infoDiv}>
                 <h1 className={styles.title}>Who Am I?</h1>
                 <p className={styles.mainParagraph}>Did you know that you can program without ever
                      leaving the terminal? My name is Jhon, and 
-                     I'm a passionate Full Stack Developer who 
+                     I&apos;m a passionate Full Stack Developer who 
                      enjoys finding creative solutions and 
                      exploring different approaches, including 
                      using powerful terminal-based tools. I like 
@@ -51,7 +51,7 @@ const About = () => {
             </div>
         </div>,
 
-        <div className={styles.firstSecondDiv}>
+        <div key={"secondDiv"} className={styles.firstSecondDiv}>
             <div className={styles.infoDiv}>
                 <h1 className={styles.title}>Mission</h1>
                 <p className={styles.mainParagraph}>I develop scalable and efficient solutions focused on the 
@@ -70,7 +70,7 @@ const About = () => {
             </div>
         </div>,
         
-        <div className={styles.thirdDiv}>
+        <div key={"thirdDiv"} className={styles.thirdDiv}>
             <div className={styles.prfessionalObjetiveDiv}>
             <h2 className={styles.subTitle}>Pursue a Degree</h2>
             <p className={styles.subParagraph}>One of my main objectives right now is to continue my studies, and I believe my next goal is to obtain a degree 

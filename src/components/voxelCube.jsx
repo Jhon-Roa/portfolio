@@ -14,7 +14,7 @@ const VoxelCube = () => {
   const refContainer = useRef()
   const [loading, setLoading] = useState(true)
   const refRenderer = useRef()
-  const model = '/cat_box_meme.glb'
+  const model = '3dModels/cat_box_meme.glb'
 
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer
