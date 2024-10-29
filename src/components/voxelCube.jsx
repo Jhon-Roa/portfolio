@@ -3,18 +3,19 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { loadGLTFModel } from '../lib/model'
+import { loadFBXModel } from '../lib/model'
 import { CubeSpinner, CubeContainer } from './voxelCubeLoader'
 
 function easeOutCirc(x) {
   return Math.sqrt(1 - Math.pow(x - 1, 4))
 }
 
-const VoxelCube = () => {
+const VoxelCharacter = () => {
   const refContainer = useRef()
   const [loading, setLoading] = useState(true)
   const refRenderer = useRef()
-  const model = '/cat_box_meme.glb'
+  const refMixer = useRef(null)
+  const character = '/Defeated.fbx' // Replace with your FBX file path
 
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer
@@ -67,15 +68,30 @@ const VoxelCube = () => {
       scene.add(ambientLight)
 
       const controls = new OrbitControls(camera, renderer.domElement)
-      controls.autoRotate = true
+      //controls.autoRotate = true; //Commented out as per update request
       controls.target = target
 
-      loadGLTFModel(scene, model, {
+      controls.enableZoom = false;
+      controls.enablePan = false;
+      controls.enableRotate = false;
+      controls.enabled = false;
+
+      loadFBXModel(scene, character, {
         receiveShadow: false,
         castShadow: false
       }).then((model) => {
-        const scaleMatrix = new THREE.Matrix4().makeScale(0.2, 0.2, 0.2)
-        model.applyMatrix4(scaleMatrix);
+        // Scale the model if needed
+        model.scale.set(0.002, 0.002, 0.002) // Adjust these values as needed
+
+        // Set up the animation mixer
+        const mixer = new THREE.AnimationMixer(model)
+        refMixer.current = mixer
+
+        // Play the first animation if it exists
+        if (model.animations && model.animations.length > 0) {
+          const action = mixer.clipAction(model.animations[0])
+          action.play()
+        }
 
         animate()
         setLoading(false)
@@ -102,6 +118,11 @@ const VoxelCube = () => {
           controls.update()
         }
 
+        // Update the animation mixer
+        if (refMixer.current) {
+          refMixer.current.update(0.016) // Assuming 60fps, adjust if needed
+        }
+
         renderer.render(scene, camera)
       }
 
@@ -125,4 +146,4 @@ const VoxelCube = () => {
   )
 }
 
-export default VoxelCube
+export default VoxelCharacter

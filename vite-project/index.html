@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Three.js GLB Animation</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import * as THREE from 'https://cdn.skypack.dev/three@0.150.0';
+      import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.150.0/examples/jsm/loaders/GLTFLoader.js';
+      import { OrbitControls } from 'https://cdn.skypack.dev/three@0.150.0/examples/jsm/controls/OrbitControls.js';
+
+      // Escena, cámara y renderizador
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      // Controles de órbita
+      const controls = new OrbitControls(camera, renderer.domElement);
+      camera.position.set(0, 1, 5);
+      controls.update();
+
+      // Luz
+      const light = new THREE.DirectionalLight(0xffffff, 1);
+      light.position.set(0, 0, 0).normalize();
+      scene.add(light);
+
+      // Cargamos el archivo GLB
+      const loader = new GLTFLoader();
+      let mixer;
+      loader.load('./rezando.glb', function (gltf) {
+        const model = gltf.scene;
+        scene.add(model);
+
+        // Configuramos el mixer de animación
+        if (gltf.animations && gltf.animations.length) {
+          mixer = new THREE.AnimationMixer(model);
+          const action = mixer.clipAction(gltf.animations[0]); // Reproduce la primera animación
+          action.play();
+        }
+      });
+
+      // Animación
+      const clock = new THREE.Clock();
+      function animate() {
+        requestAnimationFrame(animate);
+        
+        const delta = clock.getDelta();
+        if (mixer) mixer.update(delta);
+
+        controls.update();
+        renderer.render(scene, camera);
+      }
+
+      animate();
+
+      // Ajustar la ventana al tamaño de la pantalla
+      window.addEventListener('resize', () => {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+      });
+    </script>
+  </body>
+</html>

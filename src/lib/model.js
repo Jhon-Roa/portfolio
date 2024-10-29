@@ -1,32 +1,31 @@
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 
-export function loadGLTFModel(
+export function loadFBXModel(
   scene,
-  glbPath,
+  fbxPath,
   options = { receiveShadow: true, castShadow: true }
 ) {
   const { receiveShadow, castShadow } = options
   return new Promise((resolve, reject) => {
-    const loader = new GLTFLoader()
+    const loader = new FBXLoader()
 
     loader.load(
-      glbPath,
-      gltf => {
-        const obj = gltf.scene
-        obj.name = 'cube'
-        obj.position.y = 0
-        obj.position.x = 0
-        obj.receiveShadow = receiveShadow
-        obj.castShadow = castShadow
-        scene.add(obj)
+      fbxPath,
+      (fbx) => {
+        fbx.name = 'character'
+        fbx.position.y = 0
+        fbx.position.x = 0
+        fbx.receiveShadow = receiveShadow
+        fbx.castShadow = castShadow
+        scene.add(fbx)
 
-        obj.traverse(function (child) {
+        fbx.traverse(function (child) {
           if (child.isMesh) {
             child.castShadow = castShadow
             child.receiveShadow = receiveShadow
           }
         })
-        resolve(obj)
+        resolve(fbx)
       },
       undefined,
       function (error) {
