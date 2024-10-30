@@ -14,7 +14,7 @@ const VoxelCube = () => {
   const refContainer = useRef()
   const [loading, setLoading] = useState(true)
   const refRenderer = useRef()
-  const model = '3dModels/cat_box_meme.glb'
+  const model = '3dModels/industrial_light_cube.glb'
 
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer
@@ -74,7 +74,7 @@ const VoxelCube = () => {
         receiveShadow: false,
         castShadow: false
       }).then((model) => {
-        const scaleMatrix = new THREE.Matrix4().makeScale(0.2, 0.2, 0.2)
+        const scaleMatrix = new THREE.Matrix4().makeScale(2.5, 2.5, 2.5)
         model.applyMatrix4(scaleMatrix);
 
         animate()

@@ -3,10 +3,10 @@ import VoxelCube from "@/components/voxelCube";
 export default function Home() {
   const styles = {
     "mainDiv": "overflow-hidden grid grid-rows-[2fr,1fr] ls:grid-rows-1 ls:grid-cols-2 bg-[url('./images/backgroundAbout.jpg')] bg-cover bg-center min-w-screen min-h-screen max-w-screen max-h-screen",
-    "aboutMeDiv": "flex p-20 font-black justify-center flex-col",
+    "aboutMeDiv": "flex px-20 font-black justify-center flex-col",
     "title": "text-3xl lg:text-5xl animate-slidein",
     "subtitle": "text-xl lg:text-3xl animate-slidein",
-    "cubeDiv": "flex justify-center items-center pt-10 ls:pt-40",
+    "cubeDiv": "flex flex-col justify-center",
     "unordenedList": "pt-2 lg:pt-4 animate-slidein",
     "listItem": "text-xl lg:text-3xl",
     "linkText": "font-medium",
